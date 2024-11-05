@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Distributor Details Form</title>
+  <style>
+    /* Your CSS styles */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+    }
+    .form-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.5em;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.9em;
+      color: #555;
+      margin-bottom: 5px;
+    }
+    .form-group input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+    .upload-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      font-weight: bold;
+      color: #fff;
+      background-color: #28a745;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .upload-btn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Distributor Details</h2>
+    <form id="distributor-form">
+      <div class="form-group">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" placeholder="Enter location">
+      </div>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter name">
+      </div>
+      <div class="form-group">
+        <label for="facebook">Facebook Page:</label>
+        <input type="text" id="facebook" name="facebook" placeholder="Enter Facebook page">
+      </div>
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" placeholder="Enter address">
+      </div>
+      <button type="button" class="upload-btn" onclick="submitForm()">Upload</button>
+    </form>
+  </div>
+
+  <script>
+    // Replace this URL with your Google Apps Script Web App URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbx3grQ2zZtZ91_s67GuGzFNymqomWAEWFgXvqmqJ_hPPOlB5KIF7G-v23cND7l45Yer/exec';
+
+    function submitForm() {
+      const formData = {
+        location: document.getElementById('location').value,
+        name: document.getElementById('name').value,
+        facebook: document.getElementById('facebook').value,
+        address: document.getElementById('address').value
+      };
+
+      // Sending data to Google Apps Script using Fetch API
+      fetch(scriptURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.text())
+      .then(result => {
+        alert('Data successfully sent to Google Sheets!');
+        document.getElementById('distributor-form').reset();
+      })
+      .catch(error => console.error('Error!', error.message));
+    }
+  </script>
+</body>
+</html>
